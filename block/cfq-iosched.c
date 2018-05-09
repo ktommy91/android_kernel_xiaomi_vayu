@@ -705,7 +705,7 @@ static inline void cfqg_stats_update_completion(struct cfq_group *cfqg,
 				now - io_start_time_ns);
 	if (io_start_time_ns > start_time_ns)
 		blkg_rwstat_add(&stats->wait_time, op,
-						io_start_time_ns - start_time_ns);
+				io_start_time_ns - start_time_ns);
 }
 
 /* @stats = 0 */
