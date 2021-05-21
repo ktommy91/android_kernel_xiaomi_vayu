@@ -3,9 +3,9 @@
 ifeq ($(CONFIG_MACH_XIAOMI_SM8150),y)
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
 dtbo-$(CONFIG_ARCH_SM8150) += \
-		vayu-sm8150-overlay.dtbo
+			VAYU_overlay.dtbo
 
-vayu-sm8150-overlay.dtbo-base := sm8150.dtb sm8150-v2.dtb sm8150p.dtb sm8150p-v2.dtb
+VAYU_overlay.dtbo-base := 01_vayu_base_SM8150_v2_SoC.dtb 02_vayu_base_SM8150_v1_SoC.dtb 03_vayu_base_SM8150P_v2_SoC.dtb 04_vayu_base_SM8150P_v1_SoC.dtb
 endif
 else
 
