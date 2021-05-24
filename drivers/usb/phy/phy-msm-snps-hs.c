@@ -131,10 +131,12 @@ struct msm_hsphy {
 	int			*emu_dcm_reset_seq;
 	int			emu_dcm_reset_seq_len;
 
-	/* debugfs entries */
 	struct dentry		*root;
+
+
 	u8			txvref_tune0;
 	u8			pre_emphasis;
+
 	u8			param_ovrd0;
 	u8			param_ovrd1;
 	u8			param_ovrd2;
@@ -418,6 +420,7 @@ static int msm_hsphy_init(struct usb_phy *uphy)
 	if (phy->param_override_seq)
 		hsusb_phy_write_seq(phy->base, phy->param_override_seq,
 				phy->param_override_seq_cnt, 0);
+
 
 	if (phy->pre_emphasis) {
 		u8 val = TXPREEMPAMPTUNE0(phy->pre_emphasis) &
@@ -738,11 +741,13 @@ static int msm_hsphy_regulator_init(struct msm_hsphy *phy)
 	return 0;
 }
 
+
 static void msm_hsphy_create_debugfs(struct msm_hsphy *phy)
 {
 	phy->root = debugfs_create_dir(dev_name(phy->phy.dev), NULL);
 	debugfs_create_x8("pre_emphasis", 0644, phy->root, &phy->pre_emphasis);
 	debugfs_create_x8("txvref_tune0", 0644, phy->root, &phy->txvref_tune0);
+	
 	debugfs_create_x8("param_ovrd0", 0644, phy->root, &phy->param_ovrd0);
 	debugfs_create_x8("param_ovrd1", 0644, phy->root, &phy->param_ovrd1);
 	debugfs_create_x8("param_ovrd2", 0644, phy->root, &phy->param_ovrd2);
@@ -982,6 +987,9 @@ static int msm_hsphy_remove(struct platform_device *pdev)
 
 	msm_hsphy_enable_clocks(phy, false);
 	msm_hsphy_enable_power(phy, false);
+
+	kfree(phy);
+
 	return 0;
 }
 
