@@ -655,10 +655,10 @@ static void update_running_avg(void)
 		cluster->max_nr = compute_cluster_max_nr(index);
 		cluster->nr_prev_assist = prev_cluster_nr_need_assist(index);
 
-		trace_core_ctl_update_nr_need(cluster->first_cpu, nr_need,
-					prev_misfit_need,
-					cluster->nrrun, cluster->max_nr,
-					cluster->nr_prev_assist);
+		//trace_core_ctl_update_nr_need(cluster->first_cpu, nr_need,
+		//			prev_misfit_need,
+		//			cluster->nrrun, cluster->max_nr,
+		//			cluster->nr_prev_assist);
 
 		big_avg += cluster_real_big_tasks(index);
 	}
@@ -746,7 +746,7 @@ static bool eval_need(struct cluster_data *cluster)
 		cluster->active_cpus = get_active_cpu_count(cluster);
 		thres_idx = cluster->active_cpus ? cluster->active_cpus - 1 : 0;
 		list_for_each_entry(c, &cluster->lru, sib) {
-			bool old_is_busy = c->is_busy;
+			//bool old_is_busy = c->is_busy;
 
 			if (c->busy >= cluster->busy_up_thres[thres_idx] ||
 			    sched_cpu_high_irqload(c->cpu))
@@ -754,8 +754,8 @@ static bool eval_need(struct cluster_data *cluster)
 			else if (c->busy < cluster->busy_down_thres[thres_idx])
 				c->is_busy = false;
 
-			trace_core_ctl_set_busy(c->cpu, c->busy, old_is_busy,
-						c->is_busy);
+			//trace_core_ctl_set_busy(c->cpu, c->busy, old_is_busy,
+			//			c->is_busy);
 			need_cpus += c->is_busy;
 		}
 		need_cpus = apply_task_need(cluster, need_cpus);
@@ -788,8 +788,8 @@ static bool eval_need(struct cluster_data *cluster)
 		cluster->need_ts = now;
 		cluster->need_cpus = new_need;
 	}
-	trace_core_ctl_eval_need(cluster->first_cpu, last_need, new_need,
-				 ret && need_flag);
+	//trace_core_ctl_eval_need(cluster->first_cpu, last_need, new_need,
+	//			 ret && need_flag);
 	spin_unlock_irqrestore(&state_lock, flags);
 
 	return ret && need_flag;
@@ -850,8 +850,8 @@ int core_ctl_set_boost(bool boost)
 			apply_need(cluster);
 	}
 
-	if (cluster)
-		trace_core_ctl_set_boost(cluster->boost, ret);
+	//if (cluster)
+	//	trace_core_ctl_set_boost(cluster->boost, ret);
 
 	return ret;
 }
