@@ -187,9 +187,9 @@ static int cpuhp_invoke_callback(unsigned int cpu, enum cpuhp_state state,
 		cb = bringup ? step->startup.single : step->teardown.single;
 		if (!cb)
 			return 0;
-		trace_cpuhp_enter(cpu, st->target, state, cb);
+		//trace_cpuhp_enter(cpu, st->target, state, cb);
 		ret = cb(cpu);
-		trace_cpuhp_exit(cpu, st->state, state, ret);
+		//trace_cpuhp_exit(cpu, st->state, state, ret);
 		return ret;
 	}
 	cbm = bringup ? step->startup.multi : step->teardown.multi;
@@ -199,9 +199,9 @@ static int cpuhp_invoke_callback(unsigned int cpu, enum cpuhp_state state,
 	/* Single invocation for instance add/remove */
 	if (node) {
 		WARN_ON_ONCE(lastp && *lastp);
-		trace_cpuhp_multi_enter(cpu, st->target, state, cbm, node);
+		//trace_cpuhp_multi_enter(cpu, st->target, state, cbm, node);
 		ret = cbm(cpu, node);
-		trace_cpuhp_exit(cpu, st->state, state, ret);
+		//trace_cpuhp_exit(cpu, st->state, state, ret);
 		return ret;
 	}
 
@@ -211,9 +211,9 @@ static int cpuhp_invoke_callback(unsigned int cpu, enum cpuhp_state state,
 		if (lastp && node == *lastp)
 			break;
 
-		trace_cpuhp_multi_enter(cpu, st->target, state, cbm, node);
+		//trace_cpuhp_multi_enter(cpu, st->target, state, cbm, node);
 		ret = cbm(cpu, node);
-		trace_cpuhp_exit(cpu, st->state, state, ret);
+		//trace_cpuhp_exit(cpu, st->state, state, ret);
 		if (ret) {
 			if (!lastp)
 				goto err;
@@ -236,9 +236,9 @@ err:
 		if (!cnt--)
 			break;
 
-		trace_cpuhp_multi_enter(cpu, st->target, state, cbm, node);
+		//trace_cpuhp_multi_enter(cpu, st->target, state, cbm, node);
 		ret = cbm(cpu, node);
-		trace_cpuhp_exit(cpu, st->state, state, ret);
+		//trace_cpuhp_exit(cpu, st->state, state, ret);
 		/*
 		 * Rollback must not fail,
 		 */
@@ -756,9 +756,9 @@ static int cpuhp_kick_ap_work(unsigned int cpu)
 	cpuhp_lock_acquire(true);
 	cpuhp_lock_release(true);
 
-	trace_cpuhp_enter(cpu, st->target, prev_state, cpuhp_kick_ap_work);
+	//trace_cpuhp_enter(cpu, st->target, prev_state, cpuhp_kick_ap_work);
 	ret = cpuhp_kick_ap(st, st->target);
-	trace_cpuhp_exit(cpu, st->state, prev_state, ret);
+	//trace_cpuhp_exit(cpu, st->state, prev_state, ret);
 
 	return ret;
 }
@@ -1014,7 +1014,7 @@ static int __ref _cpu_down(unsigned int cpu, int tasks_frozen,
 	}
 
 out:
-	trace_cpuhp_latency(cpu, 0, start_time, ret);
+	//trace_cpuhp_latency(cpu, 0, start_time, ret);
 	cpus_write_unlock();
 	/*
 	 * Do post unplug cleanup. This is still protected against
@@ -1180,7 +1180,7 @@ static int _cpu_up(unsigned int cpu, int tasks_frozen, enum cpuhp_state target)
 	target = min((int)target, CPUHP_BRINGUP_CPU);
 	ret = cpuhp_up_callbacks(cpu, st, target);
 out:
-	trace_cpuhp_latency(cpu, 1, start_time, ret);
+	//trace_cpuhp_latency(cpu, 1, start_time, ret);
 	cpus_write_unlock();
 	arch_smt_update();
 	return ret;
@@ -1296,9 +1296,9 @@ int freeze_secondary_cpus(int primary)
 			break;
 		}
 
-		trace_suspend_resume(TPS("CPU_OFF"), cpu, true);
+		//trace_suspend_resume(TPS("CPU_OFF"), cpu, true);
 		error = _cpu_down(cpu, 1, CPUHP_OFFLINE);
-		trace_suspend_resume(TPS("CPU_OFF"), cpu, false);
+		//trace_suspend_resume(TPS("CPU_OFF"), cpu, false);
 		if (!error)
 			cpumask_set_cpu(cpu, frozen_cpus);
 		else {
@@ -1347,9 +1347,9 @@ void enable_nonboot_cpus(void)
 	arch_enable_nonboot_cpus_begin();
 
 	for_each_cpu(cpu, frozen_cpus) {
-		trace_suspend_resume(TPS("CPU_ON"), cpu, true);
+		//trace_suspend_resume(TPS("CPU_ON"), cpu, true);
 		error = _cpu_up(cpu, 1, CPUHP_ONLINE);
-		trace_suspend_resume(TPS("CPU_ON"), cpu, false);
+		//trace_suspend_resume(TPS("CPU_ON"), cpu, false);
 		if (!error) {
 			pr_debug("CPU%d is up\n", cpu);
 			cpu_device = get_cpu_device(cpu);
