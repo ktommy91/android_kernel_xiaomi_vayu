@@ -111,7 +111,7 @@ static void check_hung_task(struct task_struct *t, unsigned long timeout)
 		return;
 	}
 
-	trace_sched_process_hang(t);
+	//trace_sched_process_hang(t);
 
 	if (sysctl_hung_task_panic) {
 		console_verbose();
