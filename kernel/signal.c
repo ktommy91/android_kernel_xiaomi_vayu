@@ -1150,7 +1150,7 @@ out_set:
 	sigaddset(&pending->signal, sig);
 	complete_signal(sig, t, group);
 ret:
-	trace_signal_generate(sig, info, t, group, result);
+	//trace_signal_generate(sig, info, t, group, result);
 	return ret;
 }
 
@@ -1648,7 +1648,7 @@ int send_sigqueue(struct sigqueue *q, struct task_struct *t, int group)
 	complete_signal(sig, t, group);
 	result = TRACE_SIGNAL_DELIVERED;
 out:
-	trace_signal_generate(sig, &q->info, t, group, result);
+	//trace_signal_generate(sig, &q->info, t, group, result);
 	unlock_task_sighand(t, &flags);
 ret:
 	return ret;
