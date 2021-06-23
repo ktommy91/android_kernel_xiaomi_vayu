@@ -193,7 +193,7 @@ void __delete_from_page_cache(struct page *page, void *shadow)
 	struct address_space *mapping = page->mapping;
 	int nr = hpage_nr_pages(page);
 
-	trace_mm_filemap_delete_from_page_cache(page);
+	//trace_mm_filemap_delete_from_page_cache(page);
 	/*
 	 * if we're uptodate, flush out into the cleancache, otherwise
 	 * invalidate any existing cleancache entries.  We can't leave
@@ -606,7 +606,7 @@ void __filemap_set_wb_err(struct address_space *mapping, int err)
 {
 	errseq_t eseq = errseq_set(&mapping->wb_err, err);
 
-	trace_filemap_set_wb_err(mapping, eseq);
+	//trace_filemap_set_wb_err(mapping, eseq);
 }
 EXPORT_SYMBOL(__filemap_set_wb_err);
 
@@ -645,7 +645,7 @@ int file_check_and_advance_wb_err(struct file *file)
 		old = file->f_wb_err;
 		err = errseq_check_and_advance(&mapping->wb_err,
 						&file->f_wb_err);
-		trace_file_check_and_advance_wb_err(file, old);
+		//trace_file_check_and_advance_wb_err(file, old);
 		spin_unlock(&file->f_lock);
 	}
 
@@ -795,7 +795,7 @@ static int __add_to_page_cache_locked(struct page *page,
 	spin_unlock_irq(&mapping->tree_lock);
 	if (!huge)
 		mem_cgroup_commit_charge(page, memcg, false, false);
-	trace_mm_filemap_add_to_page_cache(page);
+	//trace_mm_filemap_add_to_page_cache(page);
 	return 0;
 err_insert:
 	page->mapping = NULL;
