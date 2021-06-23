@@ -1372,6 +1372,7 @@ config TRACE_IRQFLAGS
 config STACKTRACE
 	bool "Stack backtrace support"
 	depends on STACKTRACE_SUPPORT
+	default n
 	help
 	  This option causes the kernel to create a /proc/pid/stack for
 	  every process, showing its current stack trace.
