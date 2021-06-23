@@ -1482,15 +1482,15 @@ area_found:
 	ptr = __addr_to_pcpu_ptr(chunk->base_addr + off);
 	kmemleak_alloc_percpu(ptr, size, gfp);
 
-	trace_percpu_alloc_percpu(reserved, is_atomic, size, align,
-			chunk->base_addr, off, ptr);
+	//trace_percpu_alloc_percpu(reserved, is_atomic, size, align,
+	//		chunk->base_addr, off, ptr);
 
 	return ptr;
 
 fail_unlock:
 	spin_unlock_irqrestore(&pcpu_lock, flags);
 fail:
-	trace_percpu_alloc_percpu_fail(reserved, is_atomic, size, align);
+	//trace_percpu_alloc_percpu_fail(reserved, is_atomic, size, align);
 
 	if (!is_atomic && do_warn && warn_limit) {
 		pr_warn("allocation failed, size=%zu align=%zu atomic=%d, %s\n",
@@ -1730,7 +1730,7 @@ void free_percpu(void __percpu *ptr)
 			}
 	}
 
-	trace_percpu_free_percpu(chunk->base_addr, off, ptr);
+	//trace_percpu_free_percpu(chunk->base_addr, off, ptr);
 
 	spin_unlock_irqrestore(&pcpu_lock, flags);
 
@@ -2174,7 +2174,7 @@ int __init pcpu_setup_first_chunk(const struct pcpu_alloc_info *ai,
 	pcpu_chunk_relocate(pcpu_first_chunk, -1);
 
 	pcpu_stats_chunk_alloc();
-	trace_percpu_create_chunk(base_addr);
+	//trace_percpu_create_chunk(base_addr);
 
 	/* we're done */
 	pcpu_base_addr = base_addr;

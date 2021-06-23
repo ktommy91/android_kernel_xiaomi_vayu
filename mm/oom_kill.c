@@ -506,7 +506,7 @@ void __oom_reap_task_mm(struct mm_struct *mm)
 static bool oom_reap_task_mm(struct task_struct *tsk, struct mm_struct *mm)
 {
 	if (!down_read_trylock(&mm->mmap_sem)) {
-		trace_skip_task_reaping(tsk->pid);
+		//trace_skip_task_reaping(tsk->pid);
 		return false;
 	}
 
@@ -533,11 +533,11 @@ static bool oom_reap_task_mm(struct task_struct *tsk, struct mm_struct *mm)
 	 */
 	if (test_bit(MMF_OOM_SKIP, &mm->flags)) {
 		up_read(&mm->mmap_sem);
-		trace_skip_task_reaping(tsk->pid);
+		//trace_skip_task_reaping(tsk->pid);
 		return true;
 	}
 
-	trace_start_task_reaping(tsk->pid);
+	//trace_start_task_reaping(tsk->pid);
 
 	__oom_reap_task_mm(mm);
 
@@ -548,7 +548,7 @@ static bool oom_reap_task_mm(struct task_struct *tsk, struct mm_struct *mm)
 			K(get_mm_counter(mm, MM_SHMEMPAGES)));
 	up_read(&mm->mmap_sem);
 
-	trace_finish_task_reaping(tsk->pid);
+	//trace_finish_task_reaping(tsk->pid);
 	return true;
 }
 
@@ -625,7 +625,7 @@ void wake_oom_reaper(struct task_struct *tsk)
 	tsk->oom_reaper_list = oom_reaper_list;
 	oom_reaper_list = tsk;
 	spin_unlock(&oom_reaper_lock);
-	trace_wake_reaper(tsk->pid);
+	//trace_wake_reaper(tsk->pid);
 	wake_up(&oom_reaper_wait);
 }
 
@@ -684,7 +684,7 @@ static void mark_oom_victim(struct task_struct *tsk)
 	 */
 	__thaw_task(tsk);
 	atomic_inc(&oom_victims);
-	trace_mark_victim(tsk->pid);
+	//trace_mark_victim(tsk->pid);
 }
 
 /**
