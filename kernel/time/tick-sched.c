@@ -184,22 +184,22 @@ static bool check_tick_dependency(atomic_t *dep)
 	int val = atomic_read(dep);
 
 	if (val & TICK_DEP_MASK_POSIX_TIMER) {
-		trace_tick_stop(0, TICK_DEP_MASK_POSIX_TIMER);
+		//trace_tick_stop(0, TICK_DEP_MASK_POSIX_TIMER);
 		return true;
 	}
 
 	if (val & TICK_DEP_MASK_PERF_EVENTS) {
-		trace_tick_stop(0, TICK_DEP_MASK_PERF_EVENTS);
+		//trace_tick_stop(0, TICK_DEP_MASK_PERF_EVENTS);
 		return true;
 	}
 
 	if (val & TICK_DEP_MASK_SCHED) {
-		trace_tick_stop(0, TICK_DEP_MASK_SCHED);
+		//trace_tick_stop(0, TICK_DEP_MASK_SCHED);
 		return true;
 	}
 
 	if (val & TICK_DEP_MASK_CLOCK_UNSTABLE) {
-		trace_tick_stop(0, TICK_DEP_MASK_CLOCK_UNSTABLE);
+		//trace_tick_stop(0, TICK_DEP_MASK_CLOCK_UNSTABLE);
 		return true;
 	}
 
@@ -826,7 +826,7 @@ static void tick_nohz_stop_tick(struct tick_sched *ts, int cpu)
 
 		ts->last_tick = hrtimer_get_expires(&ts->sched_timer);
 		ts->tick_stopped = 1;
-		trace_tick_stop(1, TICK_DEP_MASK_NONE);
+		//trace_tick_stop(1, TICK_DEP_MASK_NONE);
 	}
 
 	ts->next_tick = tick;

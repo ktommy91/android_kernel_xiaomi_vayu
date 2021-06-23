@@ -1298,9 +1298,9 @@ static void call_timer_fn(struct timer_list *timer, void (*fn)(unsigned long),
 	 */
 	lock_map_acquire(&lockdep_map);
 
-	trace_timer_expire_entry(timer);
+	//trace_timer_expire_entry(timer);
 	fn(data);
-	trace_timer_expire_exit(timer);
+	//trace_timer_expire_exit(timer);
 
 	lock_map_release(&lockdep_map);
 

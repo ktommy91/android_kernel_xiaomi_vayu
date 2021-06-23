@@ -80,7 +80,7 @@ static void s2idle_begin(void)
 
 static void s2idle_enter(void)
 {
-	trace_suspend_resume(TPS("machine_suspend"), PM_SUSPEND_TO_IDLE, true);
+	//trace_suspend_resume(TPS("machine_suspend"), PM_SUSPEND_TO_IDLE, true);
 
 	raw_spin_lock_irq(&s2idle_lock);
 	if (pm_wakeup_pending())
@@ -107,7 +107,7 @@ static void s2idle_enter(void)
 	s2idle_state = S2IDLE_STATE_NONE;
 	raw_spin_unlock_irq(&s2idle_lock);
 
-	trace_suspend_resume(TPS("machine_suspend"), PM_SUSPEND_TO_IDLE, false);
+	//trace_suspend_resume(TPS("machine_suspend"), PM_SUSPEND_TO_IDLE, false);
 }
 
 static void s2idle_loop(void)
@@ -359,9 +359,9 @@ static int suspend_prepare(suspend_state_t state)
 		goto Finish;
 	}
 
-	trace_suspend_resume(TPS("freeze_processes"), 0, true);
+	//trace_suspend_resume(TPS("freeze_processes"), 0, true);
 	error = suspend_freeze_processes();
-	trace_suspend_resume(TPS("freeze_processes"), 0, false);
+	//trace_suspend_resume(TPS("freeze_processes"), 0, false);
 	if (!error)
 		return 0;
 
@@ -448,12 +448,12 @@ static int suspend_enter(suspend_state_t state, bool *wakeup)
 	if (!error) {
 		*wakeup = pm_wakeup_pending();
 		if (!(suspend_test(TEST_CORE) || *wakeup)) {
-			trace_suspend_resume(TPS("machine_suspend"),
-				state, true);
+			//trace_suspend_resume(TPS("machine_suspend"),
+			//	state, true);
 			error = suspend_ops->enter(state);
 			update_marker("M - Start System Resume");
-			trace_suspend_resume(TPS("machine_suspend"),
-				state, false);
+			//trace_suspend_resume(TPS("machine_suspend"),
+			//	state, false);
 		} else if (*wakeup) {
 			error = -EBUSY;
 		}
@@ -520,9 +520,9 @@ int suspend_devices_and_enter(suspend_state_t state)
 	suspend_test_start();
 	dpm_resume_end(PMSG_RESUME);
 	suspend_test_finish("resume devices");
-	trace_suspend_resume(TPS("resume_console"), state, true);
+	//trace_suspend_resume(TPS("resume_console"), state, true);
 	resume_console();
-	trace_suspend_resume(TPS("resume_console"), state, false);
+	//trace_suspend_resume(TPS("resume_console"), state, false);
 
  Close:
 	platform_resume_end(state);
@@ -559,7 +559,7 @@ static int enter_state(suspend_state_t state)
 {
 	int error;
 
-	trace_suspend_resume(TPS("suspend_enter"), state, true);
+	//trace_suspend_resume(TPS("suspend_enter"), state, true);
 	if (state == PM_SUSPEND_TO_IDLE) {
 #ifdef CONFIG_PM_DEBUG
 		if (pm_test_level != TEST_NONE && pm_test_level <= TEST_CPUS) {
@@ -577,9 +577,9 @@ static int enter_state(suspend_state_t state)
 		s2idle_begin();
 
 #ifndef CONFIG_SUSPEND_SKIP_SYNC
-	trace_suspend_resume(TPS("sync_filesystems"), 0, true);
+	//trace_suspend_resume(TPS("sync_filesystems"), 0, true);
 	sys_sync();
-	trace_suspend_resume(TPS("sync_filesystems"), 0, false);
+	//trace_suspend_resume(TPS("sync_filesystems"), 0, false);
 #endif
 
 	pm_pr_dbg("Preparing system for sleep (%s)\n", mem_sleep_labels[state]);
@@ -591,7 +591,7 @@ static int enter_state(suspend_state_t state)
 	if (suspend_test(TEST_FREEZER))
 		goto Finish;
 
-	trace_suspend_resume(TPS("suspend_enter"), state, false);
+	//trace_suspend_resume(TPS("suspend_enter"), state, false);
 	pm_restrict_gfp_mask();
 	error = suspend_devices_and_enter(state);
 	pm_restore_gfp_mask();
