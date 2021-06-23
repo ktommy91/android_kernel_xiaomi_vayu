@@ -678,12 +678,12 @@ static void notify_each_subsys_device(struct subsys_device **list,
 		notif_data.no_auth = dev->desc->no_auth;
 		notif_data.pdev = pdev;
 
-		trace_pil_notif("before_send_notif", notif, dev->desc->fw_name);
+		//trace_pil_notif("before_send_notif", notif, dev->desc->fw_name);
 		setup_timeout(dev->desc, NULL, SUBSYS_TO_HLOS);
 		subsys_notif_queue_notification(dev->notify, notif,
 								&notif_data);
 		cancel_timeout(dev->desc);
-		trace_pil_notif("after_send_notif", notif, dev->desc->fw_name);
+		//trace_pil_notif("after_send_notif", notif, dev->desc->fw_name);
 		subsys_notif_uevent(dev->desc, notif);
 	}
 }
