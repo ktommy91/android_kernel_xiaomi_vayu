@@ -314,7 +314,7 @@ static int latency_exceeded(struct rq_wb *rwb, struct blk_rq_stat *stat)
 	thislat = rwb_sync_issue_lat(rwb);
 	if (thislat > rwb->cur_win_nsec ||
 	    (thislat > rwb->min_lat_nsec && !stat[READ].nr_samples)) {
-		trace_wbt_lat(bdi, thislat);
+		//trace_wbt_lat(bdi, thislat);
 		return LAT_EXCEEDED;
 	}
 
@@ -338,13 +338,13 @@ static int latency_exceeded(struct rq_wb *rwb, struct blk_rq_stat *stat)
 	 * If the 'min' latency exceeds our target, step down.
 	 */
 	if (stat[READ].min > rwb->min_lat_nsec) {
-		trace_wbt_lat(bdi, stat[READ].min);
-		trace_wbt_stat(bdi, stat);
+		//trace_wbt_lat(bdi, stat[READ].min);
+		//trace_wbt_stat(bdi, stat);
 		return LAT_EXCEEDED;
 	}
 
-	if (rwb->scale_step)
-		trace_wbt_stat(bdi, stat);
+	//if (rwb->scale_step)
+	//	trace_wbt_stat(bdi, stat);
 
 	return LAT_OK;
 }
@@ -353,8 +353,8 @@ static void rwb_trace_step(struct rq_wb *rwb, const char *msg)
 {
 	struct backing_dev_info *bdi = rwb->queue->backing_dev_info;
 
-	trace_wbt_step(bdi, msg, rwb->scale_step, rwb->cur_win_nsec,
-			rwb->wb_background, rwb->wb_normal, rwb->wb_max);
+	//trace_wbt_step(bdi, msg, rwb->scale_step, rwb->cur_win_nsec,
+	//		rwb->wb_background, rwb->wb_normal, rwb->wb_max);
 }
 
 static void scale_up(struct rq_wb *rwb)
@@ -372,7 +372,7 @@ static void scale_up(struct rq_wb *rwb)
 
 	rwb_wake_all(rwb);
 
-	rwb_trace_step(rwb, "step up");
+	//rwb_trace_step(rwb, "step up");
 }
 
 /*
@@ -397,7 +397,7 @@ static void scale_down(struct rq_wb *rwb, bool hard_throttle)
 	rwb->scaled_max = false;
 	rwb->unknown_cnt = 0;
 	calc_wb_limits(rwb);
-	rwb_trace_step(rwb, "step down");
+	//rwb_trace_step(rwb, "step down");
 }
 
 static void rwb_arm_timer(struct rq_wb *rwb)
@@ -430,8 +430,8 @@ static void wb_timer_fn(struct blk_stat_callback *cb)
 
 	status = latency_exceeded(rwb, cb->stat);
 
-	trace_wbt_timer(rwb->queue->backing_dev_info, status, rwb->scale_step,
-			inflight);
+	//trace_wbt_timer(rwb->queue->backing_dev_info, status, rwb->scale_step,
+	//		inflight);
 
 	/*
 	 * If we exceeded the latency target, step down. If we did not,

@@ -607,7 +607,7 @@ void blk_mq_start_request(struct request *rq)
 
 	blk_mq_sched_started_request(rq);
 
-	trace_block_rq_issue(q, rq);
+	//trace_block_rq_issue(q, rq);
 
 	if (test_bit(QUEUE_FLAG_STATS, &q->queue_flags)) {
 		rq->io_start_time_ns = ktime_get_ns();
@@ -661,7 +661,7 @@ static void __blk_mq_requeue_request(struct request *rq)
 {
 	struct request_queue *q = rq->q;
 
-	trace_block_rq_requeue(q, rq);
+	//trace_block_rq_requeue(q, rq);
 	wbt_requeue(q->rq_wb, rq);
 
 	if (test_and_clear_bit(REQ_ATOM_STARTED, &rq->atomic_flags)) {
@@ -1429,7 +1429,7 @@ static inline void __blk_mq_insert_req_list(struct blk_mq_hw_ctx *hctx,
 
 	lockdep_assert_held(&ctx->lock);
 
-	trace_block_rq_insert(hctx->queue, rq);
+	//trace_block_rq_insert(hctx->queue, rq);
 
 	if (at_head)
 		list_add(&rq->queuelist, &ctx->rq_list);
@@ -1518,7 +1518,7 @@ void blk_mq_flush_plug_list(struct blk_plug *plug, bool from_schedule)
 		BUG_ON(!rq->q);
 		if (rq->mq_ctx != this_ctx) {
 			if (this_ctx) {
-				trace_block_unplug(this_q, depth, !from_schedule);
+				//trace_block_unplug(this_q, depth, !from_schedule);
 				blk_mq_sched_insert_requests(this_q, this_ctx,
 								&ctx_list,
 								from_schedule);
@@ -1538,7 +1538,7 @@ void blk_mq_flush_plug_list(struct blk_plug *plug, bool from_schedule)
 	 * on 'ctx_list'. Do those.
 	 */
 	if (this_ctx) {
-		trace_block_unplug(this_q, depth, !from_schedule);
+		//trace_block_unplug(this_q, depth, !from_schedule);
 		blk_mq_sched_insert_requests(this_q, this_ctx, &ctx_list,
 						from_schedule);
 	}
@@ -1670,7 +1670,7 @@ static blk_qc_t blk_mq_make_request(struct request_queue *q, struct bio *bio)
 
 	wb_acct = wbt_wait(q->rq_wb, bio, NULL);
 
-	trace_block_getrq(q, bio, bio->bi_opf);
+	//trace_block_getrq(q, bio, bio->bi_opf);
 
 	rq = blk_mq_get_request(q, bio, bio->bi_opf, &data);
 	if (unlikely(!rq)) {
@@ -1710,15 +1710,15 @@ static blk_qc_t blk_mq_make_request(struct request_queue *q, struct bio *bio)
 		else if (blk_queue_nomerges(q))
 			request_count = blk_plug_queued_count(q);
 
-		if (!request_count)
-			trace_block_plug(q);
-		else
+		//if (!request_count)
+		//	trace_block_plug(q);
+		//else
 			last = list_entry_rq(plug->mq_list.prev);
 
 		if (request_count >= BLK_MAX_REQUEST_COUNT || (last &&
 		    blk_rq_bytes(last) >= BLK_PLUG_FLUSH_SIZE)) {
 			blk_flush_plug_list(plug, false);
-			trace_block_plug(q);
+			//trace_block_plug(q);
 		}
 
 		list_add_tail(&rq->queuelist, &plug->mq_list);
