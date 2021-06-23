@@ -2180,7 +2180,7 @@ unsigned long vm_unmapped_area(struct vm_unmapped_area_info *info)
 	else
 		addr = unmapped_area(info);
 
-	trace_vm_unmapped_area(addr, info);
+	//trace_vm_unmapped_area(addr, info);
 	return addr;
 }
 

@@ -1096,7 +1096,7 @@ static __always_inline bool free_pages_prepare(struct page *page,
 
 	VM_BUG_ON_PAGE(PageTail(page), page);
 
-	trace_mm_page_free(page, order);
+	//trace_mm_page_free(page, order);
 
 	/*
 	 * Check tail pages before head page information is cleared to
@@ -1238,7 +1238,7 @@ static void free_pcppages_bulk(struct zone *zone, int count,
 				continue;
 
 			__free_one_page(page, page_to_pfn(page), zone, 0, mt);
-			trace_mm_page_pcpu_drain(page, 0, mt);
+			//trace_mm_page_pcpu_drain(page, 0, mt);
 		} while (--count && --batch_free && !list_empty(list));
 	}
 	spin_unlock(&zone->lock);
@@ -2368,8 +2368,8 @@ do_steal:
 
 	steal_suitable_fallback(zone, page, start_migratetype, can_steal);
 
-	trace_mm_page_alloc_extfrag(page, order, current_order,
-		start_migratetype, fallback_mt);
+	//trace_mm_page_alloc_extfrag(page, order, current_order,
+	//	start_migratetype, fallback_mt);
 
 	return true;
 
@@ -2390,7 +2390,7 @@ retry:
 	if (unlikely(!page) && __rmqueue_fallback(zone, order, migratetype))
 		goto retry;
 
-	trace_mm_page_alloc_zone_locked(page, order, migratetype);
+	//trace_mm_page_alloc_zone_locked(page, order, migratetype);
 	return page;
 }
 
@@ -2402,7 +2402,7 @@ static struct page *__rmqueue_cma(struct zone *zone, unsigned int order)
 	if (IS_ENABLED(CONFIG_CMA))
 		if (!zone->cma_alloc)
 			page = __rmqueue_cma_fallback(zone, order);
-	trace_mm_page_alloc_zone_locked(page, order, MIGRATE_CMA);
+	//trace_mm_page_alloc_zone_locked(page, order, MIGRATE_CMA);
 	return page;
 }
 #else
@@ -2782,7 +2782,7 @@ void free_hot_cold_page_list(struct list_head *list, bool cold)
 	struct page *page, *next;
 
 	list_for_each_entry_safe(page, next, list, lru) {
-		trace_mm_page_free_batched(page, cold);
+		//trace_mm_page_free_batched(page, cold);
 		free_hot_cold_page(page, cold);
 	}
 }
@@ -2973,8 +2973,8 @@ struct page *rmqueue(struct zone *preferred_zone,
 
 		if (alloc_flags & ALLOC_HARDER) {
 			page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
-			if (page)
-				trace_mm_page_alloc_zone_locked(page, order, migratetype);
+			//if (page)
+			//	trace_mm_page_alloc_zone_locked(page, order, migratetype);
 		}
 
 		if (!page && migratetype == MIGRATE_MOVABLE &&
@@ -3624,8 +3624,8 @@ should_compact_retry(struct alloc_context *ac, int order, int alloc_flags,
 	int max_retries = MAX_COMPACT_RETRIES;
 	int min_priority;
 	bool ret = false;
-	int retries = *compaction_retries;
-	enum compact_priority priority = *compact_priority;
+	//int retries = *compaction_retries;
+	//enum compact_priority priority = *compact_priority;
 
 	if (!order)
 		return false;
@@ -3684,7 +3684,7 @@ check_priority:
 		ret = true;
 	}
 out:
-	trace_compact_retry(order, priority, compact_result, retries, max_retries, ret);
+	//trace_compact_retry(order, priority, compact_result, retries, max_retries, ret);
 	return ret;
 }
 #else
@@ -3989,8 +3989,8 @@ should_reclaim_retry(gfp_t gfp_mask, unsigned order,
 		 */
 		wmark = __zone_watermark_ok(zone, order, min_wmark,
 				ac_classzone_idx(ac), alloc_flags, available);
-		trace_reclaim_retry_zone(z, order, reclaimable,
-				available, min_wmark, *no_progress_loops, wmark);
+		//trace_reclaim_retry_zone(z, order, reclaimable,
+		//		available, min_wmark, *no_progress_loops, wmark);
 		if (wmark) {
 			/*
 			 * If we didn't make any progress and have a lot of
@@ -4459,7 +4459,7 @@ out:
 		page = NULL;
 	}
 
-	trace_mm_page_alloc(page, order, alloc_mask, ac.migratetype);
+	//trace_mm_page_alloc(page, order, alloc_mask, ac.migratetype);
 
 	return page;
 }
