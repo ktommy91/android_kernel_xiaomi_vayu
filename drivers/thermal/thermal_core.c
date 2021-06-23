@@ -418,7 +418,7 @@ static void handle_critical_trips(struct thermal_zone_device *tz,
 	if (trip_temp <= 0 || tz->temperature < trip_temp)
 		return;
 
-	trace_thermal_zone_trip(tz, trip, trip_type, true);
+	//trace_thermal_zone_trip(tz, trip, trip_type, true);
 
 	if (tz->ops->notify)
 		tz->ops->notify(tz, trip, trip_type);
@@ -460,7 +460,7 @@ static void handle_thermal_trip(struct thermal_zone_device *tz, int trip)
 	 * So, start monitoring again.
 	 */
 	monitor_thermal_zone(tz);
-	trace_thermal_handle_trip(tz, trip);
+	//trace_thermal_handle_trip(tz, trip);
 }
 
 static void store_temperature(struct thermal_zone_device *tz, int temp)
@@ -470,7 +470,7 @@ static void store_temperature(struct thermal_zone_device *tz, int temp)
 	tz->temperature = temp;
 	mutex_unlock(&tz->lock);
 
-	trace_thermal_temperature(tz);
+	//trace_thermal_temperature(tz);
 	if (tz->last_temperature == THERMAL_TEMP_INVALID ||
 		tz->last_temperature == THERMAL_TEMP_INVALID_LOW)
 		dev_dbg(&tz->device, "last_temperature N/A, current_temperature=%d\n",
@@ -518,7 +518,7 @@ void thermal_zone_device_update_temp(struct thermal_zone_device *tz,
 		!(tz->ops->is_wakeable(tz))))
 		return;
 
-	trace_thermal_device_update(tz, event);
+	//trace_thermal_device_update(tz, event);
 	store_temperature(tz, temp);
 
 	thermal_zone_set_trips(tz);
@@ -542,7 +542,7 @@ void thermal_zone_device_update(struct thermal_zone_device *tz,
 	if (!tz->ops->get_temp)
 		return;
 
-	trace_thermal_device_update(tz, event);
+	//trace_thermal_device_update(tz, event);
 	update_temperature(tz);
 
 	thermal_zone_set_trips(tz);

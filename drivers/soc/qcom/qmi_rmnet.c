@@ -217,7 +217,7 @@ int qmi_rmnet_flow_control(struct net_device *dev, u32 mq_idx, int enable)
 	else
 		netif_tx_stop_queue(q);
 
-	trace_dfc_qmi_tc(dev->name, mq_idx, enable);
+	//trace_dfc_qmi_tc(dev->name, mq_idx, enable);
 
 	return 0;
 }
@@ -246,7 +246,7 @@ static void qmi_rmnet_watchdog_fn(struct timer_list *t)
 
 	bearer = container_of(t, struct rmnet_bearer_map, watchdog);
 
-	trace_dfc_watchdog(bearer->qos->mux_id, bearer->bearer_id, 2);
+	//trace_dfc_watchdog(bearer->qos->mux_id, bearer->bearer_id, 2);
 
 	spin_lock_bh(&bearer->qos->qos_lock);
 
@@ -286,7 +286,7 @@ void qmi_rmnet_watchdog_add(struct rmnet_bearer_map *bearer)
 	bearer->watchdog_started = true;
 	mod_timer(&bearer->watchdog, jiffies + WATCHDOG_EXPIRE_JF);
 
-	trace_dfc_watchdog(bearer->qos->mux_id, bearer->bearer_id, 1);
+	//trace_dfc_watchdog(bearer->qos->mux_id, bearer->bearer_id, 1);
 }
 
 /**
@@ -303,7 +303,7 @@ void qmi_rmnet_watchdog_remove(struct rmnet_bearer_map *bearer)
 	if (try_to_del_timer_sync(&bearer->watchdog) >= 0)
 		bearer->watchdog_started = false;
 
-	trace_dfc_watchdog(bearer->qos->mux_id, bearer->bearer_id, 0);
+	//trace_dfc_watchdog(bearer->qos->mux_id, bearer->bearer_id, 0);
 }
 
 /**
@@ -458,8 +458,8 @@ static int qmi_rmnet_add_flow(struct net_device *dev, struct tcmsg *tcm,
 	new_map.flow_id = tcm->tcm_parent;
 	new_map.ip_type = tcm->tcm_ifindex;
 	new_map.mq_idx = tcm->tcm_handle;
-	trace_dfc_flow_info(dev->name, new_map.bearer_id, new_map.flow_id,
-			    new_map.ip_type, new_map.mq_idx, 1);
+	//trace_dfc_flow_info(dev->name, new_map.bearer_id, new_map.flow_id,
+	//		    new_map.ip_type, new_map.mq_idx, 1);
 
 again:
 	spin_lock_bh(&qos_info->qos_lock);
@@ -538,9 +538,9 @@ qmi_rmnet_del_flow(struct net_device *dev, struct tcmsg *tcm,
 	itm = qmi_rmnet_get_flow_map(qos_info, new_map.flow_id,
 				     new_map.ip_type);
 	if (itm) {
-		trace_dfc_flow_info(dev->name, new_map.bearer_id,
-				    new_map.flow_id, new_map.ip_type,
-				    itm->mq_idx, 0);
+		//trace_dfc_flow_info(dev->name, new_map.bearer_id,
+		//		    new_map.flow_id, new_map.ip_type,
+		//		    itm->mq_idx, 0);
 
 		__qmi_rmnet_bearer_put(dev, qos_info, itm->bearer, true);
 
