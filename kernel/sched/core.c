@@ -2099,7 +2099,7 @@ try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags,
 	if (!(p->state & state))
 		goto out;
 
-	trace_sched_waking(p);
+	//trace_sched_waking(p);
 
 	/* We're going to change ->state: */
 	success = 1;
@@ -2239,7 +2239,7 @@ static void try_to_wake_up_local(struct task_struct *p, struct rq_flags *rf)
 	if (!(p->state & TASK_NORMAL))
 		goto out;
 
-	trace_sched_waking(p);
+	//trace_sched_waking(p);
 
 	if (!task_on_rq_queued(p)) {
 		u64 wallclock = sched_ktime_clock();
@@ -2606,7 +2606,7 @@ void wake_up_new_task(struct task_struct *p)
 	activate_task(rq, p, ENQUEUE_NOCLOCK);
 
 	p->on_rq = TASK_ON_RQ_QUEUED;
-	trace_sched_wakeup_new(p);
+	//trace_sched_wakeup_new(p);
 	check_preempt_curr(rq, p, WF_FORK);
 #ifdef CONFIG_SMP
 	if (p->sched_class->task_woken) {
@@ -3266,7 +3266,7 @@ static inline void preempt_latency_start(int val)
 		ps->caddr[3] = CALLER_ADDR3;
 		ps->irqs_disabled = irqs_disabled();
 
-		trace_preempt_off(CALLER_ADDR0, ip);
+		//trace_preempt_off(CALLER_ADDR0, ip);
 	}
 }
 
@@ -3307,11 +3307,11 @@ static inline void preempt_latency_stop(int val)
 		 * Trace preempt disable stack if preemption
 		 * is disabled for more than the threshold.
 		 */
-		if (delta > sysctl_preemptoff_tracing_threshold_ns)
+		/*if (delta > sysctl_preemptoff_tracing_threshold_ns)
 			trace_sched_preempt_disable(delta, ps->irqs_disabled,
 						ps->caddr[0], ps->caddr[1],
-						ps->caddr[2], ps->caddr[3]);
-		trace_preempt_on(CALLER_ADDR0, get_lock_parent_ip());
+						ps->caddr[2], ps->caddr[3]);*/
+		//trace_preempt_on(CALLER_ADDR0, get_lock_parent_ip());
 	}
 }
 
@@ -3581,7 +3581,7 @@ static void __sched notrace __schedule(bool preempt)
 		 */
 		++*switch_count;
 
-		trace_sched_switch(preempt, prev, next);
+		//trace_sched_switch(preempt, prev, next);
 
 		/* Also unlocks the rq: */
 		rq = context_switch(rq, prev, next, &rf);
@@ -3910,7 +3910,7 @@ void rt_mutex_setprio(struct task_struct *p, struct task_struct *pi_task)
 		goto out_unlock;
 	}
 
-	trace_sched_pi_setprio(p, pi_task);
+	//trace_sched_pi_setprio(p, pi_task);
 	oldprio = p->prio;
 
 	if (oldprio == prio)
@@ -5581,7 +5581,7 @@ void init_idle(struct task_struct *idle, int cpu)
 	 * The idle tasks have their own, simple scheduling class:
 	 */
 	idle->sched_class = &idle_sched_class;
-	ftrace_graph_init_idle_task(idle, cpu);
+	//ftrace_graph_init_idle_task(idle, cpu);
 	vtime_init_idle(idle, cpu);
 #ifdef CONFIG_SMP
 	sprintf(idle->comm, "%s/%d", INIT_TASK_COMM, cpu);
@@ -5647,7 +5647,7 @@ int migrate_task_to(struct task_struct *p, int target_cpu)
 
 	/* TODO: This is not properly updating schedstats */
 
-	trace_sched_move_numa(p, curr_cpu, target_cpu);
+	//trace_sched_move_numa(p, curr_cpu, target_cpu);
 	return stop_one_cpu(curr_cpu, migration_cpu_stop, &arg);
 }
 
@@ -6036,8 +6036,8 @@ int sched_isolate_cpu(int cpu)
 
 out:
 	cpu_maps_update_done();
-	trace_sched_isolate(cpu, cpumask_bits(cpu_isolated_mask)[0],
-			    start_time, 1);
+	//trace_sched_isolate(cpu, cpumask_bits(cpu_isolated_mask)[0],
+	//		    start_time, 1);
 	return ret_code;
 }
 
@@ -6085,8 +6085,8 @@ int sched_unisolate_cpu_unlocked(int cpu)
 	}
 
 out:
-	trace_sched_isolate(cpu, cpumask_bits(cpu_isolated_mask)[0],
-			    start_time, 0);
+	//trace_sched_isolate(cpu, cpumask_bits(cpu_isolated_mask)[0],
+	//		    start_time, 0);
 	return ret_code;
 }
 
