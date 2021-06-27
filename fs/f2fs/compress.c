@@ -598,8 +598,8 @@ static int f2fs_compress_pages(struct compress_ctx *cc)
 	u32 chksum = 0;
 	int i, ret;
 
-	trace_f2fs_compress_pages_start(cc->inode, cc->cluster_idx,
-				cc->cluster_size, fi->i_compress_algorithm);
+	//trace_f2fs_compress_pages_start(cc->inode, cc->cluster_idx,
+	//			cc->cluster_size, fi->i_compress_algorithm);
 
 	if (cops->init_compress_ctx) {
 		ret = cops->init_compress_ctx(cc);
@@ -690,8 +690,8 @@ static int f2fs_compress_pages(struct compress_ctx *cc)
 	cc->cpages = new_cpages;
 	cc->nr_cpages = new_nr_cpages;
 
-	trace_f2fs_compress_pages_end(cc->inode, cc->cluster_idx,
-							cc->clen, ret);
+	//trace_f2fs_compress_pages_end(cc->inode, cc->cluster_idx,
+	//						cc->clen, ret);
 	return 0;
 
 out_vunmap_cbuf:
@@ -709,8 +709,8 @@ destroy_compress_ctx:
 	if (cops->destroy_compress_ctx)
 		cops->destroy_compress_ctx(cc);
 out:
-	trace_f2fs_compress_pages_end(cc->inode, cc->cluster_idx,
-							cc->clen, ret);
+	//trace_f2fs_compress_pages_end(cc->inode, cc->cluster_idx,
+	//						cc->clen, ret);
 	return ret;
 }
 
@@ -723,8 +723,8 @@ static void f2fs_decompress_cluster(struct decompress_io_ctx *dic)
 	int ret;
 	int i;
 
-	trace_f2fs_decompress_pages_start(dic->inode, dic->cluster_idx,
-				dic->cluster_size, fi->i_compress_algorithm);
+	//trace_f2fs_decompress_pages_start(dic->inode, dic->cluster_idx,
+	//			dic->cluster_size, fi->i_compress_algorithm);
 
 	if (dic->failed) {
 		ret = -EIO;
@@ -802,8 +802,8 @@ out_destroy_decompress_ctx:
 	if (cops->destroy_decompress_ctx)
 		cops->destroy_decompress_ctx(dic);
 out_end_io:
-	trace_f2fs_decompress_pages_end(dic->inode, dic->cluster_idx,
-							dic->clen, ret);
+	//trace_f2fs_decompress_pages_end(dic->inode, dic->cluster_idx,
+	//						dic->clen, ret);
 	f2fs_decompress_end_io(dic, ret);
 }
 

@@ -126,18 +126,18 @@ static struct inode *f2fs_new_inode(struct inode *dir, umode_t mode)
 
 	f2fs_set_inode_flags(inode);
 
-	trace_f2fs_new_inode(inode, 0);
+	//trace_f2fs_new_inode(inode, 0);
 	return inode;
 
 fail:
-	trace_f2fs_new_inode(inode, err);
+	//trace_f2fs_new_inode(inode, err);
 	make_bad_inode(inode);
 	if (nid_free)
 		set_inode_flag(inode, FI_FREE_NID);
 	iput(inode);
 	return ERR_PTR(err);
 fail_drop:
-	trace_f2fs_new_inode(inode, err);
+	//trace_f2fs_new_inode(inode, err);
 	dquot_drop(inode);
 	inode->i_flags |= S_NOQUOTA;
 	if (nid_free)
@@ -493,7 +493,7 @@ static struct dentry *f2fs_lookup(struct inode *dir, struct dentry *dentry,
 	unsigned int root_ino = F2FS_ROOT_INO(F2FS_I_SB(dir));
 	struct f2fs_filename fname;
 
-	trace_f2fs_lookup_start(dir, dentry, flags);
+	//trace_f2fs_lookup_start(dir, dentry, flags);
 
 	if (dentry->d_name.len > F2FS_NAME_LEN) {
 		err = -ENAMETOOLONG;
@@ -554,18 +554,18 @@ out_splice:
 		 * well.  For now, prevent the negative dentry
 		 * from being cached.
 		 */
-		trace_f2fs_lookup_end(dir, dentry, ino, err);
+		//trace_f2fs_lookup_end(dir, dentry, ino, err);
 		return NULL;
 	}
 #endif
 	new = d_splice_alias(inode, dentry);
 	err = PTR_ERR_OR_ZERO(new);
-	trace_f2fs_lookup_end(dir, dentry, ino, !new ? -ENOENT : err);
+	//trace_f2fs_lookup_end(dir, dentry, ino, !new ? -ENOENT : err);
 	return new;
 out_iput:
 	iput(inode);
 out:
-	trace_f2fs_lookup_end(dir, dentry, ino, err);
+	//trace_f2fs_lookup_end(dir, dentry, ino, err);
 	return ERR_PTR(err);
 }
 
@@ -577,7 +577,7 @@ static int f2fs_unlink(struct inode *dir, struct dentry *dentry)
 	struct page *page;
 	int err;
 
-	trace_f2fs_unlink_enter(dir, dentry);
+	//trace_f2fs_unlink_enter(dir, dentry);
 
 	if (unlikely(f2fs_cp_error(sbi))) {
 		err = -EIO;
@@ -623,7 +623,7 @@ static int f2fs_unlink(struct inode *dir, struct dentry *dentry)
 	if (IS_DIRSYNC(dir))
 		f2fs_sync_fs(sbi->sb, 1);
 fail:
-	trace_f2fs_unlink_exit(inode, err);
+	//trace_f2fs_unlink_exit(inode, err);
 	return err;
 }
 

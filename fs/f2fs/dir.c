@@ -1118,7 +1118,7 @@ static int f2fs_readdir(struct file *file, struct dir_context *ctx)
 out_free:
 	fscrypt_fname_free_buffer(&fstr);
 out:
-	trace_f2fs_readdir(inode, start_pos, ctx->pos, err);
+	//trace_f2fs_readdir(inode, start_pos, ctx->pos, err);
 	return err < 0 ? err : 0;
 }
 
