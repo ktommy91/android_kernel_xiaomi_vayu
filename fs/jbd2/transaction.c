@@ -450,9 +450,9 @@ handle_t *jbd2__journal_start(journal_t *journal, int nblocks, int rsv_blocks,
 	}
 	handle->h_type = type;
 	handle->h_line_no = line_no;
-	trace_jbd2_handle_start(journal->j_fs_dev->bd_dev,
-				handle->h_transaction->t_tid, type,
-				line_no, nblocks);
+	//trace_jbd2_handle_start(journal->j_fs_dev->bd_dev,
+	//			handle->h_transaction->t_tid, type,
+	//			line_no, nblocks);
 
 	return handle;
 }
@@ -606,11 +606,11 @@ int jbd2_journal_extend(handle_t *handle, int nblocks)
 		goto unlock;
 	}
 
-	trace_jbd2_handle_extend(journal->j_fs_dev->bd_dev,
-				 transaction->t_tid,
-				 handle->h_type, handle->h_line_no,
-				 handle->h_buffer_credits,
-				 nblocks);
+	//trace_jbd2_handle_extend(journal->j_fs_dev->bd_dev,
+	//			 transaction->t_tid,
+	//			 handle->h_type, handle->h_line_no,
+	//			 handle->h_buffer_credits,
+	//			 nblocks);
 
 	handle->h_buffer_credits += nblocks;
 	handle->h_requested_credits += nblocks;
@@ -852,9 +852,9 @@ repeat:
 
 	/* If it takes too long to lock the buffer, trace it */
 	time_lock = jbd2_time_diff(start_lock, jiffies);
-	if (time_lock > HZ/10)
-		trace_jbd2_lock_buffer_stall(bh->b_bdev->bd_dev,
-			jiffies_to_msecs(time_lock));
+	//if (time_lock > HZ/10)
+	//	trace_jbd2_lock_buffer_stall(bh->b_bdev->bd_dev,
+	//		jiffies_to_msecs(time_lock));
 
 	/* We now hold the buffer lock so it is safe to query the buffer
 	 * state.  Is the buffer dirty?
