@@ -952,7 +952,7 @@ int __jbd2_update_log_tail(journal_t *journal, tid_t tid, unsigned long block)
 	if (block < journal->j_tail)
 		freed += journal->j_last - journal->j_first;
 
-	trace_jbd2_update_log_tail(journal, tid, block, freed);
+	//trace_jbd2_update_log_tail(journal, tid, block, freed);
 	jbd_debug(1,
 		  "Cleaning journal tail from %d to %d (offset %lu), "
 		  "freeing %lu\n",
@@ -1369,7 +1369,7 @@ static int jbd2_write_superblock(journal_t *journal, int write_flags)
 		return -EIO;
 	}
 
-	trace_jbd2_write_superblock(journal, write_flags);
+	//trace_jbd2_write_superblock(journal, write_flags);
 	if (!(journal->j_flags & JBD2_BARRIER))
 		write_flags &= ~(REQ_FUA | REQ_PREFLUSH);
 	if (buffer_write_io_error(bh)) {
