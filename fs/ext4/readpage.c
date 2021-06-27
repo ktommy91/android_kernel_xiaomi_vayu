@@ -150,12 +150,12 @@ static bool bio_post_read_required(struct bio *bio)
 static void
 ext4_trace_read_completion(struct bio *bio)
 {
-	struct page *first_page = bio->bi_io_vec[0].bv_page;
+/*	struct page *first_page = bio->bi_io_vec[0].bv_page;
 
 	if (first_page != NULL)
 		trace_android_fs_dataread_end(first_page->mapping->host,
 					      page_offset(first_page),
-					      bio->bi_iter.bi_size);
+					      bio->bi_iter.bi_size);*/
 }
 
 /*
@@ -172,8 +172,8 @@ ext4_trace_read_completion(struct bio *bio)
  */
 static void mpage_end_io(struct bio *bio)
 {
-	if (trace_android_fs_dataread_start_enabled())
-		ext4_trace_read_completion(bio);
+	//if (trace_android_fs_dataread_start_enabled())
+	//	ext4_trace_read_completion(bio);
 
 	if (bio_post_read_required(bio)) {
 		struct bio_post_read_ctx *ctx = bio->bi_private;
@@ -227,7 +227,7 @@ static inline loff_t ext4_readpage_limit(struct inode *inode)
 static void
 ext4_submit_bio_read(struct bio *bio)
 {
-	if (trace_android_fs_dataread_start_enabled()) {
+	/*if (trace_android_fs_dataread_start_enabled()) {
 		struct page *first_page = bio->bi_io_vec[0].bv_page;
 
 		if (first_page != NULL) {
@@ -244,7 +244,7 @@ ext4_submit_bio_read(struct bio *bio)
 				path,
 				current->comm);
 		}
-	}
+	}*/
 	submit_bio(bio);
 }
 
