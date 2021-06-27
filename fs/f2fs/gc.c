@@ -81,7 +81,7 @@ static int gc_thread_func(void *data)
 			rapid_gc_set_wakelock();
 			// Use 1 instead of 0 to allow thread interrupts
 			wait_ms = 1;
-			sbi->gc_mode = GC_URGENT;
+			sbi->gc_mode = GC_URGENT_HIGH;
 		} else {
 			rapid_gc_set_wakelock();
 			wait_ms = gc_th->min_sleep_time;
@@ -130,7 +130,7 @@ static int gc_thread_func(void *data)
 		 * invalidated soon after by user update or deletion.
 		 * So, I'd like to wait some time to collect dirty segments.
 		 */
-		if (sbi->gc_mode == GC_URGENT || sbi->rapid_gc) {
+		if (sbi->gc_mode == GC_URGENT_HIGH || sbi->rapid_gc) {
 			if (!sbi->rapid_gc)
 				wait_ms = gc_th->urgent_sleep_time;
 			down_write(&sbi->gc_lock);
