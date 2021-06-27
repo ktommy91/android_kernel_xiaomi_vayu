@@ -571,7 +571,7 @@ static int ext4_getfsmap_format(struct ext4_fsmap *xfm, void *priv)
 	struct getfsmap_info *info = priv;
 	struct fsmap fm;
 
-	trace_ext4_getfsmap_mapping(info->gi_sb, xfm);
+	//trace_ext4_getfsmap_mapping(info->gi_sb, xfm);
 
 	info->gi_last_flags = xfm->fmr_flags;
 	ext4_fsmap_from_internal(info->gi_sb, &fm, xfm);
@@ -613,8 +613,8 @@ static int ext4_ioc_getfsmap(struct super_block *sb,
 	ext4_fsmap_to_internal(sb, &xhead.fmh_keys[0], &head.fmh_keys[0]);
 	ext4_fsmap_to_internal(sb, &xhead.fmh_keys[1], &head.fmh_keys[1]);
 
-	trace_ext4_getfsmap_low_key(sb, &xhead.fmh_keys[0]);
-	trace_ext4_getfsmap_high_key(sb, &xhead.fmh_keys[1]);
+	//trace_ext4_getfsmap_low_key(sb, &xhead.fmh_keys[0]);
+	//trace_ext4_getfsmap_high_key(sb, &xhead.fmh_keys[1]);
 
 	info.gi_sb = sb;
 	info.gi_data = arg;

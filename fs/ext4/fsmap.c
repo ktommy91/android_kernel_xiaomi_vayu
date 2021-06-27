@@ -149,10 +149,10 @@ static int ext4_getfsmap_helper(struct super_block *sb,
 
 		ext4_get_group_no_and_offset(sb, info->gfi_next_fsblk,
 				&agno, &cno);
-		trace_ext4_fsmap_mapping(sb, info->gfi_dev, agno,
-				EXT4_C2B(sbi, cno),
-				rec_fsblk - info->gfi_next_fsblk,
-				EXT4_FMR_OWN_UNKNOWN);
+		//trace_ext4_fsmap_mapping(sb, info->gfi_dev, agno,
+		//		EXT4_C2B(sbi, cno),
+		//		rec_fsblk - info->gfi_next_fsblk,
+		//		EXT4_FMR_OWN_UNKNOWN);
 
 		fmr.fmr_device = info->gfi_dev;
 		fmr.fmr_physical = info->gfi_next_fsblk;
@@ -173,8 +173,8 @@ static int ext4_getfsmap_helper(struct super_block *sb,
 		return EXT4_QUERY_RANGE_ABORT;
 
 	ext4_get_group_no_and_offset(sb, rec_fsblk, &agno, &cno);
-	trace_ext4_fsmap_mapping(sb, info->gfi_dev, agno, EXT4_C2B(sbi, cno),
-			rec->fmr_length, rec->fmr_owner);
+	//trace_ext4_fsmap_mapping(sb, info->gfi_dev, agno, EXT4_C2B(sbi, cno),
+	//		rec->fmr_length, rec->fmr_owner);
 
 	fmr.fmr_device = info->gfi_dev;
 	fmr.fmr_physical = rec_fsblk;
@@ -278,15 +278,15 @@ static int ext4_getfsmap_logdev(struct super_block *sb, struct ext4_fsmap *keys,
 
 	memset(&info->gfi_high, 0xFF, sizeof(info->gfi_high));
 
-	trace_ext4_fsmap_low_key(sb, info->gfi_dev, 0,
-			info->gfi_low.fmr_physical,
-			info->gfi_low.fmr_length,
-			info->gfi_low.fmr_owner);
+	//trace_ext4_fsmap_low_key(sb, info->gfi_dev, 0,
+	//		info->gfi_low.fmr_physical,
+	//		info->gfi_low.fmr_length,
+	//		info->gfi_low.fmr_owner);
 
-	trace_ext4_fsmap_high_key(sb, info->gfi_dev, 0,
-			info->gfi_high.fmr_physical,
-			info->gfi_high.fmr_length,
-			info->gfi_high.fmr_owner);
+	//trace_ext4_fsmap_high_key(sb, info->gfi_dev, 0,
+	//		info->gfi_high.fmr_physical,
+	//		info->gfi_high.fmr_length,
+	//		info->gfi_high.fmr_owner);
 
 	if (keys[0].fmr_physical > 0)
 		return 0;
@@ -537,15 +537,15 @@ static int ext4_getfsmap_datadev(struct super_block *sb,
 			info->gfi_high.fmr_length = 0;
 		}
 
-		trace_ext4_fsmap_low_key(sb, info->gfi_dev, info->gfi_agno,
-				info->gfi_low.fmr_physical,
-				info->gfi_low.fmr_length,
-				info->gfi_low.fmr_owner);
+		//trace_ext4_fsmap_low_key(sb, info->gfi_dev, info->gfi_agno,
+		//		info->gfi_low.fmr_physical,
+		//		info->gfi_low.fmr_length,
+		//		info->gfi_low.fmr_owner);
 
-		trace_ext4_fsmap_high_key(sb, info->gfi_dev, info->gfi_agno,
-				info->gfi_high.fmr_physical,
-				info->gfi_high.fmr_length,
-				info->gfi_high.fmr_owner);
+		//trace_ext4_fsmap_high_key(sb, info->gfi_dev, info->gfi_agno,
+		//		info->gfi_high.fmr_physical,
+		//		info->gfi_high.fmr_length,
+		//		info->gfi_high.fmr_owner);
 
 		error = ext4_mballoc_query_range(sb, info->gfi_agno,
 				EXT4_B2C(sbi, info->gfi_low.fmr_physical),

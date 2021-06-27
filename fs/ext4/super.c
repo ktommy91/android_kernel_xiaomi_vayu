@@ -1055,7 +1055,7 @@ static int ext4_drop_inode(struct inode *inode)
 	if (!drop)
 		drop = fscrypt_drop_inode(inode);
 
-	trace_ext4_drop_inode(inode, drop);
+	//trace_ext4_drop_inode(inode, drop);
 	return drop;
 }
 
@@ -1172,7 +1172,7 @@ static int ext4_nfs_commit_metadata(struct inode *inode)
 		.sync_mode = WB_SYNC_ALL
 	};
 
-	trace_ext4_nfs_commit_metadata(inode);
+	//trace_ext4_nfs_commit_metadata(inode);
 	return ext4_write_inode(inode, &wbc);
 }
 
@@ -5185,7 +5185,7 @@ static int ext4_sync_fs(struct super_block *sb, int wait)
 	if (unlikely(ext4_forced_shutdown(EXT4_SB(sb))))
 		return 0;
 
-	trace_ext4_sync_fs(sb, wait);
+	//trace_ext4_sync_fs(sb, wait);
 	flush_workqueue(sbi->rsv_conversion_wq);
 	/*
 	 * Writeback quota in non-journalled quota case - journalled quota has
