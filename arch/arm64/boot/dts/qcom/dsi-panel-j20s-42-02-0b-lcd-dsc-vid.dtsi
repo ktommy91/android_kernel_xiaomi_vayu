@@ -78,7 +78,6 @@
 		qcom,mdss-dsi-display-timings {
 			timing@0{
 				qcom,mdss-dsi-panel-framerate = <120>;
-				qcom,mdss-dsi-panel-jitter = <0x3 0x1>;
 				qcom,mdss-dsi-panel-width = <1080>;
 				qcom,mdss-dsi-panel-height = <2400>;
 				qcom,mdss-dsi-h-pulse-width = <12>;
@@ -273,8 +272,6 @@
 				mi,mdss-dsi-max-luminance-write-command-state = "dsi_lp_mode";
 				mi,mdss-dsi-max-luminance-read-command = <0x6010000 0x1a1>;
 				mi,mdss-dsi-max-luminance-read-command-state = "dsi_lp_mode";
-				qcom,partial-update-enabled = "single_roi";
-				qcom,panel-roi-alignment = <540 8 8 8 1080 8>;
 			};
 		};
 	};
