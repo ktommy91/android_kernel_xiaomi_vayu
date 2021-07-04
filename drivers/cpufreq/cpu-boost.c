@@ -34,7 +34,7 @@ static struct kthread_work input_boost_work;
 
 static struct kthread_work powerkey_input_boost_work;
 
-static unsigned int powerkey_input_boost_ms = 400;
+static unsigned int powerkey_input_boost_ms = 300;
 module_param(powerkey_input_boost_ms, uint, 0644);
 
 #ifdef CONFIG_DYNAMIC_STUNE_BOOST
@@ -42,7 +42,7 @@ static int dynamic_stune_boost=30;
 module_param(dynamic_stune_boost, uint, 0644);
 static bool stune_boost_active;
 static int boost_slot;
-static unsigned int dynamic_stune_boost_ms = 100;
+static unsigned int dynamic_stune_boost_ms = 80;
 module_param(dynamic_stune_boost_ms, uint, 0644);
 static struct delayed_work dynamic_stune_boost_rem;
 #endif /* CONFIG_DYNAMIC_STUNE_BOOST */
