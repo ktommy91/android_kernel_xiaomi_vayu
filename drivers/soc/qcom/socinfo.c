@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2020, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2009-2021, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -390,7 +390,6 @@ static struct msm_soc_info cpu_of_id[] = {
 
 	/* qcs405 ID */
 	[352] = {MSM_CPU_QCS405, "QCS405"},
-	[451] = {MSM_CPU_QCS405, "SA2145P"},
 	[452] = {MSM_CPU_QCS405, "SA2150P"},
 
 	/* qcs404 ID */
@@ -401,6 +400,7 @@ static struct msm_soc_info cpu_of_id[] = {
 
 	/* qcs403 ID */
 	[373] = {MSM_CPU_QCS403, "QCS403"},
+	[451] = {MSM_CPU_QCS403, "SA2145P"},
 
 	/* qcs401 ID */
 	[372] = {MSM_CPU_QCS401, "QCS401"},
@@ -409,6 +409,7 @@ static struct msm_soc_info cpu_of_id[] = {
 	[357] = {SDX_CPU_SDXPRAIRIE, "SDXPRAIRIE"},
 	[368] = {SDX_CPU_SDXPRAIRIE, "SDXPRAIRIE"},
 	[418] = {SDX_CPU_SDXPRAIRIE, "SDXPRAIRIE"},
+	[516] = {SDX_CPU_SDXPRAIRIE, "SDXPRAIRIE"},
 
 	/* sdmmagpie ID */
 	[365] = {MSM_CPU_SDMMAGPIE, "SDMMAGPIE"},
